@@ -30,7 +30,7 @@ export function SaveTheDate() {
 
   return (
     <section id="date" className="wash relative overflow-hidden border-t border-gold/15 px-8 pt-16 pb-20 text-center">
-      <Floral name="corner-b" onPaper flipX flipY className="absolute -top-8 -left-16 w-48" />
+      <Floral name="corner-b" onPaper flipY className="absolute -top-8 -right-16 w-44" />
       <Reveal>
         <p className="font-script text-[5rem] leading-none text-gold-deep">Save</p>
         <p className="heading -mt-1 text-[0.95rem] text-gold-deep">our date</p>

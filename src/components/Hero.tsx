@@ -22,7 +22,7 @@ export function Hero() {
   return (
     <section id="top" className="dust relative overflow-hidden px-6 pt-28 pb-20 text-center text-gold-light">
       <Floral name="corner-tall" flipY className="absolute -top-10 -left-16 w-60" />
-      <Floral name="corner-a" className="absolute -right-20 -bottom-16 w-72" />
+      <Floral name="corner-a" className="absolute -right-10 -bottom-12 w-72" />
 
       <div className="hero-in relative">
         <Monogram size={56} className="text-gold-light" />

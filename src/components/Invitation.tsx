@@ -7,7 +7,8 @@ export function Invitation() {
 
   return (
     <section id="invitation" className="wash relative overflow-hidden px-8 py-20 text-center">
-      <Floral name="spray-wide" onPaper flipY className="absolute -top-6 -right-16 w-60" />
+      {/* Top-left, opposite the hero's bottom-right corner, so the two never stack. */}
+      <Floral name="spray-wide" onPaper flipX flipY className="absolute -top-6 -left-16 w-56" />
       <Reveal>
         <p className="font-serif text-[1.05rem] italic text-ink-soft">{families.lead}</p>
         <ul className="mt-4 space-y-2">

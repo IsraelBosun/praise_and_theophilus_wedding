@@ -6,58 +6,79 @@ import { wedding } from "@/lib/wedding";
 const VOLUME = 0.32;
 
 /**
- * The background song, after t-wedding's player. Browsers refuse to play audio
- * before the visitor has interacted, so it starts on their first tap or key
- * press anywhere on the page. Once they pause it by hand, nothing but the
- * button starts it again.
+ * The background song, after t-wedding's player. It plays on page load
+ * wherever the browser allows it. Most browsers, phones above all, refuse
+ * sound until the visitor has interacted, and no site can override that, so
+ * when refused it starts on their first touch, click or key press anywhere.
+ * Once they pause it by hand, nothing but the button starts it again.
  *
- * The button stays hidden until the file is confirmed to exist, so the page
- * shows no dead control before the MP3 has been added.
+ * If the file fails to load, the button hides itself rather than showing a
+ * dead control.
  */
 export function Music() {
   const { src, title } = wedding.music;
   const audio = useRef<HTMLAudioElement>(null);
   const button = useRef<HTMLButtonElement>(null);
   const pausedByUser = useRef(false);
-  const [available, setAvailable] = useState(false);
+  // The file is assumed present; a load error hides the button.
+  const [available, setAvailable] = useState(true);
   const [playing, setPlaying] = useState(false);
 
-  const play = useCallback(() => {
+  /** Resolves true once the song is actually playing, false if the browser refused. */
+  const play = useCallback(async () => {
     const el = audio.current;
-    if (!el || !el.paused) return;
+    if (!el) return false;
+    if (!el.paused) return true;
     el.volume = VOLUME;
-    el.play().then(
-      () => setPlaying(true),
-      () => setPlaying(false),
-    );
+    try {
+      await el.play();
+      return true;
+    } catch {
+      return false;
+    }
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
-    fetch(src, { method: "HEAD" })
-      .then((res) => !cancelled && setAvailable(res.ok))
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, [src]);
+    const el = audio.current;
+    if (!el) return;
+    el.volume = VOLUME;
 
-  useEffect(() => {
-    if (!available) return;
-    const onFirstGesture = (e: Event) => {
+    // The <audio autoPlay> in the server HTML has usually tried already. Try
+    // again now in case it was waiting on data, and once more when the song
+    // can play. Browsers that allow autoplay will start here.
+    play();
+    const onReady = () => {
+      if (!pausedByUser.current) play();
+    };
+    el.addEventListener("canplay", onReady, { once: true });
+
+    // A load error before hydration would be missed by onError, so check it here too.
+    const frame = requestAnimationFrame(() => {
+      if (el.error) setAvailable(false);
+    });
+
+    // Browsers that refuse autoplay allow it on the visitor's first touch,
+    // click or key press, so the song starts then without hunting for the
+    // button. Only these events count as permission; on a touch screen it is
+    // the finger lifting (pointerup, touchend), so the landing ones alone
+    // would leave phones silent. Listening stops once a play succeeds.
+    const events = ["pointerdown", "pointerup", "mousedown", "touchstart", "touchend", "click", "keydown"] as const;
+    const onGesture = (e: Event) => {
       // The button handles its own taps, or the first one would play then pause.
       if (button.current?.contains(e.target as Node)) return;
-      if (!pausedByUser.current) play();
+      if (pausedByUser.current) return remove();
+      play().then((ok) => ok && remove());
+    };
+    const remove = () => events.forEach((name) => window.removeEventListener(name, onGesture, true));
+    // Capture phase, so a tap on a link or button still counts before anything else handles it.
+    events.forEach((name) => window.addEventListener(name, onGesture, { capture: true, passive: true }));
+
+    return () => {
       remove();
+      el.removeEventListener("canplay", onReady);
+      cancelAnimationFrame(frame);
     };
-    const remove = () => {
-      window.removeEventListener("pointerdown", onFirstGesture);
-      window.removeEventListener("keydown", onFirstGesture);
-    };
-    window.addEventListener("pointerdown", onFirstGesture);
-    window.addEventListener("keydown", onFirstGesture);
-    return remove;
-  }, [available, play]);
+  }, [play]);
 
   const toggle = () => {
     const el = audio.current;
@@ -68,13 +89,22 @@ export function Music() {
     } else {
       pausedByUser.current = true;
       el.pause();
-      setPlaying(false);
     }
   };
 
   return (
     <>
-      <audio ref={audio} src={available ? src : undefined} loop preload="none" />
+      {/* The element reports its own state, so the button never shows "playing" over silence. */}
+      <audio
+        ref={audio}
+        src={src}
+        autoPlay
+        loop
+        preload="auto"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onError={() => setAvailable(false)}
+      />
       {available && (
         <button
           ref={button}
