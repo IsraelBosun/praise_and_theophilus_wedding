@@ -18,7 +18,19 @@ const pinyon = Pinyon_Script({
   weight: "400",
 });
 
+/*
+  Link previews need an absolute image URL. On Vercel this is the production
+  domain, set by Vercel itself; locally it falls back to the dev server.
+
+  The tab icon, the Apple icon and the share image are files in this folder
+  (icon.png, apple-icon.png, opengraph-image.jpg), which Next picks up on its own.
+*/
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Praise & Theophilus | 05 December 2026",
   description:
     "The wedding of Praise and Theophilus. Saturday 5 December 2026, Gwagwalada, Abuja.",
@@ -26,8 +38,8 @@ export const metadata: Metadata = {
     title: "Praise & Theophilus",
     description: "Saturday 5 December 2026, Gwagwalada, Abuja. You are invited.",
     type: "website",
-    images: ["/invitation/images/invitation-card.jpg"],
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {

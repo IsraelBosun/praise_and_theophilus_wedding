@@ -148,6 +148,15 @@ export const wedding = {
     ] satisfies Phone[],
   },
 
+  /**
+   * Background song. Drop the MP3 at public/invitation/audio/orente.mp3 and
+   * the play button appears; until then the page has no music control.
+   */
+  music: {
+    src: "/invitation/audio/orente.mp3",
+    title: "Orente by Adekunle Gold",
+  },
+
   wishes: {
     heading: "Your Wishes",
     body: "Share a few warm words and prayers for the couple.",

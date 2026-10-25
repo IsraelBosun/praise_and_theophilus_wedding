@@ -1,5 +1,6 @@
 import { Animator } from "@/components/Animator";
 import { Monogram } from "@/components/Ornaments";
+import { Music } from "@/components/Music";
 import { NavBar } from "@/components/NavBar";
 import { Hero } from "@/components/Hero";
 import { Invitation } from "@/components/Invitation";
@@ -26,6 +27,7 @@ export default function Home() {
         <Monogram size={72} />
       </div>
       <Animator />
+      <Music />
       <NavBar />
       <main className="mx-auto w-full max-w-[480px] overflow-hidden bg-paper shadow-[0_0_60px_rgb(0_0_0/0.35)]">
         <Hero />
