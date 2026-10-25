@@ -1,6 +1,6 @@
 import { ChevronUp } from "lucide-react";
 import { wedding } from "@/lib/wedding";
-import { FloralSpray, Heart, Monogram } from "./Ornaments";
+import { Floral, Heart, Monogram } from "./Ornaments";
 
 export function Wishes() {
   const { wishes, rsvp } = wedding;
@@ -8,7 +8,7 @@ export function Wishes() {
 
   return (
     <section className="dust relative overflow-hidden px-8 py-20 text-center text-gold-light">
-      <FloralSpray className="absolute -top-6 -left-12 w-48 text-gold/40" flip />
+      <Floral name="corner-tall" flipY className="absolute -top-12 -left-16 w-52" />
       <h2 className="heading text-[1.3rem]">{wishes.heading}</h2>
       <p className="mx-auto mt-3 max-w-[28ch] font-serif text-[1.05rem] text-gold-light/85">{wishes.body}</p>
       <a
@@ -19,7 +19,9 @@ export function Wishes() {
       >
         Leave a wish
       </a>
-      <Monogram size={40} className="mx-auto mt-12 block text-gold" />
+      <div className="mt-12">
+        <Monogram size={44} className="text-gold-light" />
+      </div>
     </section>
   );
 }
@@ -33,7 +35,8 @@ export function Closing() {
         <h2 className="heading text-[1.35rem] text-gold-deep">{closing.heading}</h2>
         <p className="mx-auto mt-3 max-w-[26ch] font-serif text-[1.08rem] text-ink">{closing.body}</p>
         <Heart className="beat mx-auto mt-5 block text-gold" />
-        <FloralSpray className="absolute -bottom-4 left-1/2 w-72 -translate-x-1/2 text-gold/55" />
+        <Floral name="corner-tall" onPaper className="absolute -bottom-6 -left-10 w-52" />
+        <Floral name="bouquet" onPaper className="absolute -right-6 -bottom-10 w-40" />
       </section>
 
       <footer className="dust px-8 py-14 text-center text-gold-light">

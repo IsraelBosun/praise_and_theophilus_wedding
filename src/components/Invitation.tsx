@@ -1,5 +1,5 @@
 import { wedding } from "@/lib/wedding";
-import { Divider, FloralSpray } from "./Ornaments";
+import { Divider, Floral } from "./Ornaments";
 import { Reveal } from "./Reveal";
 
 export function Invitation() {
@@ -7,7 +7,7 @@ export function Invitation() {
 
   return (
     <section id="invitation" className="wash relative overflow-hidden px-8 py-20 text-center">
-      <FloralSpray className="absolute -top-4 -right-14 w-52 text-gold/45" />
+      <Floral name="spray-wide" onPaper flipY className="absolute -top-6 -right-16 w-60" />
       <Reveal>
         <p className="font-serif text-[1.05rem] italic text-ink-soft">{families.lead}</p>
         <ul className="mt-4 space-y-2">

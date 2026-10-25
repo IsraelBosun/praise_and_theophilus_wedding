@@ -1,5 +1,5 @@
 import { wedding } from "@/lib/wedding";
-import { FloralSpray } from "./Ornaments";
+import { Floral } from "./Ornaments";
 import { Reveal } from "./Reveal";
 
 const MONTHS = [
@@ -30,7 +30,7 @@ export function SaveTheDate() {
 
   return (
     <section id="date" className="wash relative overflow-hidden border-t border-gold/15 px-8 pt-16 pb-20 text-center">
-      <FloralSpray className="absolute -top-2 -left-12 w-48 text-gold/40" flip />
+      <Floral name="corner-b" onPaper flipX flipY className="absolute -top-8 -left-16 w-48" />
       <Reveal>
         <p className="font-script text-[5rem] leading-none text-gold-deep">Save</p>
         <p className="heading -mt-1 text-[0.95rem] text-gold-deep">our date</p>

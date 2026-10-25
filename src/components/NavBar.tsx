@@ -7,6 +7,7 @@ import { Monogram } from "./Ornaments";
 const LINKS = [
   { href: "#invitation", label: "Invitation" },
   { href: "#date", label: "Save the Date" },
+  { href: "#story", label: "Our Story" },
   { href: "#schedule", label: "Order of the Day" },
   { href: "#venues", label: "Venues" },
   { href: "#dress-code", label: "Colours of the Day" },

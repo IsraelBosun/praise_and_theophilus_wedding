@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { wedding } from "@/lib/wedding";
-import { FloralSpray } from "./Ornaments";
+import { Floral } from "./Ornaments";
 
 // The wall clock is read only in the browser. The server snapshot is null, so
 // prerendering never calls Date.now() and hydration starts from dashes.
@@ -38,7 +38,7 @@ export function Countdown() {
 
   return (
     <section className="dust relative overflow-hidden px-6 py-20 text-center text-gold-light">
-      <FloralSpray className="absolute -top-8 -right-14 w-48 text-gold/40" />
+      <Floral name="corner-a" flipY className="absolute -top-14 -right-16 w-56" />
       <p className="eyebrow text-sage">Counting down</p>
       <h2 className="mt-3 font-script text-[2.8rem] leading-tight">to forever</h2>
 

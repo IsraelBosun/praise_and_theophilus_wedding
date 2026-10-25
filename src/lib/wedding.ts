@@ -25,7 +25,8 @@ export type Venue = {
 };
 
 export const wedding = {
-  monogram: { left: "P", right: "T" },
+  /** The couple's mark, TPRAYS'26. Shown in the nav, the opening curtain, the hero and the wishes. */
+  monogram: { text: "TPRAYS", year: "26" },
 
   bride: { name: "Praise" },
   groom: { name: "Theophilus" },
@@ -104,14 +105,29 @@ export const wedding = {
   },
 
   /**
-   * Fill in to show the section. `photo` is cut to a heart, as in the design.
-   * Example:
-   *   { photo: "/invitation/images/couple.jpg", paragraphs: ["...", "..."] }
+   * Set to null to hide the section. `photo` is cut to a heart, as in the
+   * design, so it is cropped with both faces in the heart's upper middle.
    */
-  story: null as null | { photo: string | null; paragraphs: string[] },
+  story: {
+    photo: "/invitation/images/story-heart.jpg",
+    photoAlt: "Theophilus kissing Praise on the forehead as she smiles",
+    paragraphs: [
+      "From a yes on bended knee to forever.",
+      "We cannot wait to begin it surrounded by the people we love.",
+    ],
+  } as null | { photo: string | null; photoAlt: string; paragraphs: string[] },
 
-  /** Paths under /public. An empty list hides the gallery. */
-  gallery: [] as string[],
+  /** An empty list hides the gallery. */
+  gallery: [
+    {
+      src: "/invitation/images/gallery-proposal.jpg",
+      alt: "Theophilus on one knee proposing to Praise beneath a Will You Marry Me sign",
+    },
+    {
+      src: "/invitation/images/gallery-traditional.jpg",
+      alt: "Praise and Theophilus in red and white traditional attire",
+    },
+  ] as { src: string; alt: string }[],
 
   gifts: {
     heading: "Gifts",

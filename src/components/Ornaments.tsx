@@ -1,25 +1,17 @@
+import Image from "next/image";
 import { wedding } from "@/lib/wedding";
 
-/** The "P/T" mark from the reference's top-left corner. */
+/** The couple's mark, TPRAYS'26: the name in spaced capitals, the year in script. */
 export function Monogram({ className = "", size = 40 }: { className?: string; size?: number }) {
-  const { left, right } = wedding.monogram;
+  const { text, year } = wedding.monogram;
   return (
     <span
-      aria-label={`${wedding.bride.name} and ${wedding.groom.name}`}
-      className={`relative inline-block font-serif leading-none ${className}`}
-      style={{ width: size, height: size }}
+      aria-label={`${text} ${year}`}
+      className={`inline-flex items-baseline whitespace-nowrap leading-none ${className}`}
+      style={{ fontSize: size * 0.42 }}
     >
-      <span className="absolute top-0 left-0" style={{ fontSize: size * 0.55 }}>
-        {left}
-      </span>
-      <span
-        aria-hidden
-        className="absolute top-1/2 left-1/2 h-px origin-center -translate-x-1/2 -rotate-[60deg] bg-current opacity-70"
-        style={{ width: size * 0.75 }}
-      />
-      <span className="absolute right-0 bottom-0" style={{ fontSize: size * 0.55 }}>
-        {right}
-      </span>
+      <span className="heading tracking-[0.2em]">{text}</span>
+      <span className="font-script -ml-[0.1em] text-[1.45em] leading-none">’{year}</span>
     </span>
   );
 }
@@ -47,74 +39,76 @@ export function Divider({ className = "" }: { className?: string }) {
   );
 }
 
-const PETAL = "M0 0 C -14 -10 -16 -34 0 -46 C 16 -34 14 -10 0 0 Z";
+/*
+  The ivory florals from t-wedding, as drawn:
+    corner-a     big bloom at the lower right, sprays rising left and up
+    corner-b     bloom at the lower middle, stems rising to the right
+    corner-tall  bloom at the lower left, stems rising up and running right
+    bouquet      a standing cluster of three blooms
+    spray-wide   a horizontal spray, bloom at the right
+*/
+const FLORALS = {
+  "corner-a": { w: 700, h: 766 },
+  "corner-b": { w: 600, h: 758 },
+  "corner-tall": { w: 600, h: 758 },
+  bouquet: { w: 480, h: 635 },
+  "spray-wide": { w: 458, h: 300 },
+} as const;
 
-// pathLength={1} on every stroke lets the CSS draw any of them in with the
-// same dash values, whatever its real length.
-function Bloom({ x, y, r = 1, rotate = 0 }: { x: number; y: number; r?: number; rotate?: number }) {
-  return (
-    <g className="d2" transform={`translate(${x} ${y}) rotate(${rotate}) scale(${r})`}>
-      {[0, 72, 144, 216, 288].map((a) => (
-        <path key={a} pathLength={1} d={PETAL} transform={`rotate(${a})`} />
-      ))}
-      {[36, 108, 180, 252, 324].map((a) => (
-        <path key={a} pathLength={1} d={PETAL} transform={`rotate(${a}) scale(0.62)`} />
-      ))}
-      <circle pathLength={1} r="5" />
-      {[0, 60, 120, 180, 240, 300].map((a) => (
-        <circle
-          key={a}
-          pathLength={1}
-          r="1.2"
-          cx={Math.round(Math.cos((a * Math.PI) / 180) * 900) / 100}
-          cy={Math.round(Math.sin((a * Math.PI) / 180) * 900) / 100}
-        />
-      ))}
-    </g>
-  );
-}
-
-function Leaf({ x, y, rotate, s = 1 }: { x: number; y: number; rotate: number; s?: number }) {
-  return (
-    <g className="d1 leaf" transform={`translate(${x} ${y}) rotate(${rotate}) scale(${s})`}>
-      <path pathLength={1} d="M0 0 C 10 -8 30 -8 44 0 C 30 8 10 8 0 0 Z" />
-      <path pathLength={1} d="M2 0 L 40 0" />
-    </g>
-  );
-}
+export type FloralName = keyof typeof FLORALS;
 
 /**
- * Gold line-art florals, drawn rather than shipped as images so they stay
- * sharp at any size and take their colour from the surrounding text. They
- * draw themselves in when they scroll into view, then sway.
+ * One of the florals, placed by `className` (position and width). It blooms
+ * in when it scrolls into view, then sways. Three layers so each owns its own
+ * transform: the outer one the bloom-in, the middle one the mirroring, the
+ * image the sway.
+ *
+ * On the light paper the ivory needs a soft shadow to hold its edge; `onPaper`
+ * adds it.
  */
-export function FloralSpray({ className = "", flip = false }: { className?: string; flip?: boolean }) {
+export function Floral({
+  name,
+  className = "",
+  flipX = false,
+  flipY = false,
+  onPaper = false,
+}: {
+  name: FloralName;
+  className?: string;
+  flipX?: boolean;
+  flipY?: boolean;
+  onPaper?: boolean;
+}) {
+  const { w, h } = FLORALS[name];
+  const mirror = `${flipX ? "scaleX(-1)" : ""} ${flipY ? "scaleY(-1)" : ""}`.trim();
   return (
-    <svg
-      data-inview
-      viewBox="0 0 260 220"
+    <span data-inview aria-hidden className={`bloom pointer-events-none -z-10 block select-none ${className}`}>
+      <span className="block" style={mirror ? { transform: mirror } : undefined}>
+        <Image
+          src={`/invitation/ornaments/floral-${name}.webp`}
+          alt=""
+          width={w}
+          height={h}
+          draggable={false}
+          sizes="320px"
+          className={`sway block h-auto w-full ${onPaper ? "drop-shadow-[0_2px_5px_rgb(138_106_63/0.35)]" : ""}`}
+        />
+      </span>
+    </span>
+  );
+}
+
+/** The peony on its own, for small accents and the timeline's rider. */
+export function Peony({ className = "" }: { className?: string }) {
+  return (
+    <Image
+      src="/invitation/ornaments/peony.webp"
+      alt=""
       aria-hidden
-      className={`draw sway ${className}`}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="0.9"
-      strokeLinecap="round"
-    >
-      {/* The mirror lives inside the SVG so the sway can own the element's transform. */}
-      <g transform={flip ? "translate(260 0) scale(-1 1)" : undefined}>
-        <path pathLength={1} d="M10 210 C 60 170 100 140 150 110 C 180 92 205 70 220 40" />
-        <path pathLength={1} d="M120 128 C 112 100 116 80 128 62" />
-        <path pathLength={1} d="M170 96 C 190 100 210 112 222 130" />
-        <Leaf x={60} y={172} rotate={-60} />
-        <Leaf x={90} y={150} rotate={20} s={0.9} />
-        <Leaf x={140} y={116} rotate={-75} s={0.8} />
-        <Leaf x={190} y={80} rotate={10} s={0.7} />
-        <Bloom x={128} y={58} r={0.9} rotate={-10} />
-        <Bloom x={222} y={36} r={0.65} rotate={20} />
-        <Bloom x={224} y={134} r={0.55} rotate={40} />
-        <circle className="d2" pathLength={1} cx="40" cy="190" r="1.6" />
-        <circle className="d2" pathLength={1} cx="200" cy="160" r="1.2" />
-      </g>
-    </svg>
+      width={200}
+      height={200}
+      draggable={false}
+      className={`pointer-events-none block h-auto select-none ${className}`}
+    />
   );
 }

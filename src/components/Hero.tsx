@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { wedding } from "@/lib/wedding";
-import { FloralSpray, Heart, Monogram } from "./Ornaments";
+import { Floral, Heart, Monogram } from "./Ornaments";
 
 /** A name set the way the card sets it: a flourished script capital, then caps. */
 function CardName({ name, base }: { name: string; base: string }) {
@@ -21,11 +21,11 @@ export function Hero() {
 
   return (
     <section id="top" className="dust relative overflow-hidden px-6 pt-28 pb-20 text-center text-gold-light">
-      <FloralSpray className="absolute -top-6 -left-10 w-56 text-gold/50" flip />
-      <FloralSpray className="absolute -right-12 -bottom-10 w-60 rotate-180 text-gold/40" flip />
+      <Floral name="corner-tall" flipY className="absolute -top-10 -left-16 w-60" />
+      <Floral name="corner-a" className="absolute -right-20 -bottom-16 w-72" />
 
       <div className="hero-in relative">
-        <Monogram size={56} className="mx-auto block text-gold-light" />
+        <Monogram size={56} className="text-gold-light" />
 
         <p className="eyebrow mt-8 text-gold-light/80">We are getting married</p>
 

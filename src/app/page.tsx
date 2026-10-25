@@ -31,10 +31,11 @@ export default function Home() {
         <Hero />
         <Invitation />
         <SaveTheDate />
-        <Schedule />
-        <Venues />
+        {/* Who they are before the logistics, as in the reference. */}
         <Story />
         <Gallery />
+        <Schedule />
+        <Venues />
         <Countdown />
         <DressCode />
         <Gifts />

@@ -74,20 +74,9 @@ body {
   background-size: 180px 180px, 220px 220px, 160px 160px, 200px 200px, 100% 100%;
 }
 
-/* Florals carry herbal green in their leaves: deep on paper, lifted on wine. */
-:root {
-  --leaf: var(--color-herbal);
-}
-.dust {
-  --leaf: var(--color-sage);
-}
-.leaf {
-  stroke: var(--leaf);
-  stroke-opacity: 0.8;
-}
-
-.heart-mask {
-  clip-path: path("M150 270 C 60 205 0 150 0 85 C 0 35 40 0 85 0 C 115 0 138 18 150 42 C 162 18 185 0 215 0 C 260 0 300 35 300 85 C 300 150 240 205 150 270 Z");
+/* Both grounds isolate, so florals can sit at a negative z-index behind the text. */
+.wash {
+  isolation: isolate;
 }
 
 /*
@@ -277,6 +266,22 @@ body {
   transition-delay: 1s;
 }
 
+/* Florals bloom in: they open from a little smaller, turned and soft. */
+.js .bloom {
+  opacity: 0;
+  transform: scale(0.82) rotate(-5deg);
+  filter: blur(8px);
+}
+.js .bloom.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition:
+    opacity 1.6s var(--ease-out),
+    transform 2.2s var(--ease-out),
+    filter 1.6s var(--ease-out);
+}
+
 @keyframes sway {
   0%, 100% {
     transform: rotate(-1.2deg);
@@ -323,10 +328,10 @@ body {
 }
 
 /* A photograph settles out of a slow zoom. */
-.js .settle img {
+.js .settle img:not([aria-hidden]) {
   transform: scale(1.14);
 }
-.js .is-visible .settle img {
+.js .is-visible .settle img:not([aria-hidden]) {
   transform: scale(1);
   transition: transform 3s var(--ease-out) 0.2s;
 }
@@ -446,7 +451,12 @@ body {
   .js .draw :is(path, circle) {
     stroke-dashoffset: 0;
   }
-  .js .settle img {
+  .js .bloom {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .js .settle img:not([aria-hidden]) {
     transform: none;
   }
   .js .curtain {
