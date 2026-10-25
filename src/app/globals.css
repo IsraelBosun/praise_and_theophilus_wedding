@@ -1,26 +1,459 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  The palette is the card's three colours of the day: vintage wine as the
+  dark ground, champagne gold as the metal, herbal green as a quiet accent.
+  Paper is the warm cream the reference sets its light sections on.
+*/
+@theme {
+  --color-paper: #f7f1ea;
+  --color-cream: #efe5d8;
+  --color-wine: #4b1526;
+  --color-wine-deep: #3a0f1d;
+  --color-wine-soft: #6e2a3e;
+  --color-rose: #e7b7bf;
+  --color-gold: #b38b59;
+  --color-gold-deep: #8a6a3f;
+  --color-gold-light: #d9bf94;
+  --color-herbal: #6e6e3a;
+  /* Herbal green deepened for small text on paper (about 6:1). */
+  --color-herbal-deep: #5c5c2e;
+  /* Herbal green lifted to read on the wine ground. */
+  --color-sage: #a9a873;
+  --color-champagne: #e2d2b6;
+  --color-ink: #4a2a30;
+  --color-ink-soft: #7a5a5f;
+
+  --font-serif: var(--font-cormorant), "Times New Roman", serif;
+  --font-script: var(--font-pinyon), cursive;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-wine-deep);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+}
+
+/* Letterspaced small-caps headings, as in the reference. */
+.heading {
+  font-family: var(--font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+}
+
+.eyebrow {
+  font-family: var(--font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-weight: 600;
+  font-size: 0.7rem;
+}
+
+/* A faint watercolour wash behind the light sections. */
+.wash {
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 100% 10%, rgb(226 210 182 / 0.45), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 0% 90%, rgb(226 210 182 / 0.35), transparent 70%);
+}
+
+/* Gold dust over the wine sections. */
+.dust {
+  background-color: var(--color-wine);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgb(217 191 148 / 0.35) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 80% 12%, rgb(217 191 148 / 0.3) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 70% 70%, rgb(217 191 148 / 0.25) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 30% 85%, rgb(217 191 148 / 0.3) 0 1px, transparent 1.5px),
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgb(110 42 62 / 0.6), transparent 70%);
+  background-size: 180px 180px, 220px 220px, 160px 160px, 200px 200px, 100% 100%;
+}
+
+/* Florals carry herbal green in their leaves: deep on paper, lifted on wine. */
+:root {
+  --leaf: var(--color-herbal);
+}
+.dust {
+  --leaf: var(--color-sage);
+}
+.leaf {
+  stroke: var(--leaf);
+  stroke-opacity: 0.8;
+}
+
+.heart-mask {
+  clip-path: path("M150 270 C 60 205 0 150 0 85 C 0 35 40 0 85 0 C 115 0 138 18 150 42 C 162 18 185 0 215 0 C 260 0 300 35 300 85 C 300 150 240 205 150 270 Z");
+}
+
+/*
+  Motion.
+
+  Every hidden starting state sits under `.js`, which an inline script in the
+  layout sets before first paint. Without JavaScript nothing is ever hidden.
+  Components/Animator.tsx adds `is-visible` to `[data-inview]` elements as
+  they scroll in. All of it is switched off for prefers-reduced-motion.
+*/
+:root {
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-pop: cubic-bezier(0.3, 1.6, 0.5, 1);
+  /* When the opening curtain has lifted. The hero waits for it. */
+  --intro: 1.5s;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Children of a stagger list count themselves, so delays need no props. */
+.reveal > *,
+.stagger > *,
+.hero-in > * {
+  --i: 0;
+}
+.reveal > :nth-child(2), .stagger > :nth-child(2), .hero-in > :nth-child(2) { --i: 1; }
+.reveal > :nth-child(3), .stagger > :nth-child(3), .hero-in > :nth-child(3) { --i: 2; }
+.reveal > :nth-child(4), .stagger > :nth-child(4), .hero-in > :nth-child(4) { --i: 3; }
+.reveal > :nth-child(5), .stagger > :nth-child(5), .hero-in > :nth-child(5) { --i: 4; }
+.reveal > :nth-child(6), .stagger > :nth-child(6), .hero-in > :nth-child(6) { --i: 5; }
+.reveal > :nth-child(7), .stagger > :nth-child(7), .hero-in > :nth-child(7) { --i: 6; }
+.reveal > :nth-child(8), .stagger > :nth-child(8), .hero-in > :nth-child(8) { --i: 7; }
+.reveal > :nth-child(n + 9), .stagger > :nth-child(n + 9), .hero-in > :nth-child(n + 9) { --i: 8; }
+
+/* Sections: each child rises in a beat after the one before. */
+.js .reveal > * {
+  opacity: 0;
+}
+.js .reveal.is-visible > * {
+  animation: rise 1s var(--ease-out) both;
+  animation-delay: calc(var(--i) * 110ms);
+}
+
+/* Lists inside a section (timeline stops, swatches) follow once it is in. */
+.js .stagger > * {
+  opacity: 0;
+}
+.js .is-visible .stagger > * {
+  animation: rise 0.9s var(--ease-out) both;
+  animation-delay: calc(0.45s + var(--i) * 0.3s);
+}
+.js .is-visible .stagger.pop-in > * {
+  animation-name: pop;
+  animation-timing-function: var(--ease-pop);
+  animation-delay: calc(0.5s + var(--i) * 0.14s);
+}
+
+/* The hero plays on load, just after the curtain. */
+.js .hero-in > * {
+  animation: rise 1.3s var(--ease-out) both;
+  animation-delay: calc(var(--intro) + var(--i) * 0.16s);
+}
+
+/* The capitals of each name close in from wide letterspacing. */
+@keyframes track-in {
+  from {
+    letter-spacing: 0.5em;
+  }
+}
+.js .track-in {
+  animation: track-in 2s var(--ease-out) both;
+  animation-delay: calc(var(--intro) + 0.3s);
+}
+
+/*
+  A slow glint across the couple's names. Padding gives the script capitals'
+  flourishes room inside the clipped background, and the negative margin
+  takes the space back.
+*/
+@keyframes shimmer {
+  0%, 55% {
+    background-position: 120% 0;
+  }
+  100% {
+    background-position: -20% 0;
+  }
+}
+.shimmer {
+  padding: 0.2em 0.15em;
+  margin: -0.2em -0.15em;
+  background-image: linear-gradient(110deg, var(--base) 38%, #fff4df 50%, var(--base) 62%);
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 7s ease-in-out infinite;
+  animation-delay: calc(var(--intro) + 1.5s);
+}
+
+/* Opening curtain: wine with the monogram, lifting away on first load. */
+@keyframes curtain {
+  0%, 60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes curtain-mark {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+    filter: blur(6px);
+  }
+  35%, 70% {
+    opacity: 1;
+    transform: scale(1);
+    filter: none;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+}
+.curtain {
+  display: none;
+}
+.js .curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-wine);
+  color: var(--color-gold-light);
+  pointer-events: none;
+  animation: curtain var(--intro) ease-in-out both;
+}
+.js .curtain > * {
+  animation: curtain-mark var(--intro) var(--ease-out) both;
+}
+
+.js .nav-in {
+  animation: rise 1s var(--ease-out) both;
+  animation-delay: calc(var(--intro) + 0.6s);
+}
+
+/* Line art draws itself: stems, then leaves, then blooms. */
+.js .draw :is(path, circle) {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.js .draw.is-visible :is(path, circle) {
+  transition: stroke-dashoffset 2.2s ease-in-out;
+  stroke-dashoffset: 0;
+}
+.js .draw.is-visible .d1 :is(path, circle) {
+  transition-delay: 0.5s;
+}
+.js .draw.is-visible :is(.d2 path, .d2 circle, circle.d2) {
+  transition-duration: 1.8s;
+  transition-delay: 1s;
+}
+
+@keyframes sway {
+  0%, 100% {
+    transform: rotate(-1.2deg);
+  }
+  50% {
+    transform: rotate(1.4deg);
+  }
+}
+.sway {
+  transform-origin: 20% 90%;
+  animation: sway 11s ease-in-out infinite;
+}
+
+/* The wedding day on the calendar pops in, then keeps a soft pulse. */
+@keyframes ring {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+.pop-day {
+  position: relative;
+}
+.pop-day::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-wine);
+  border-radius: 9999px;
+  opacity: 0;
+}
+.js .pop-day {
+  opacity: 0;
+}
+.js .is-visible .pop-day {
+  animation: pop 0.8s var(--ease-pop) 0.9s both;
+}
+.is-visible .pop-day::after {
+  animation: ring 2.4s ease-out 1.8s infinite;
+}
+
+/* A photograph settles out of a slow zoom. */
+.js .settle img {
+  transform: scale(1.14);
+}
+.js .is-visible .settle img {
+  transform: scale(1);
+  transition: transform 3s var(--ease-out) 0.2s;
+}
+
+/* A countdown digit slides in each time it changes (it is re-keyed). */
+@keyframes tick {
+  from {
+    opacity: 0;
+    transform: translateY(-45%);
+    filter: blur(3px);
+  }
+}
+.tick {
+  display: inline-block;
+  animation: tick 0.55s var(--ease-out);
+}
+
+@keyframes beat {
+  0%, 40%, 100% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.16);
+  }
+  20% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+}
+.beat {
+  animation: beat 2.8s ease-in-out infinite;
+}
+
+/* Gold dust twinkling and drifting upward over the wine sections. */
+@keyframes twinkle {
+  0% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.35;
+  }
+}
+@keyframes drift {
+  to {
+    background-position: 0 -140px, 0 -190px, 0 -230px;
+  }
+}
+.dust {
+  position: relative;
+  isolation: isolate;
+}
+.dust::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 25% 30%, rgb(240 222 186 / 0.9) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 55%, rgb(240 222 186 / 0.8) 0 1.2px, transparent 2.2px),
+    radial-gradient(circle at 45% 80%, rgb(240 222 186 / 0.7) 0 0.8px, transparent 1.8px);
+  background-size: 140px 140px, 190px 190px, 230px 230px;
+  animation:
+    twinkle 6s ease-in-out infinite alternate,
+    drift 45s linear infinite;
+}
+
+/* A light sweep across buttons on hover, and on its own for the key ones. */
+@keyframes sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  30%, 100% {
+    transform: translateX(120%);
+  }
+}
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.35) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.8s var(--ease-out);
+  pointer-events: none;
+}
+.shine:hover::after {
+  transform: translateX(120%);
+}
+.shine-auto::after {
+  animation: sweep 5s ease-in-out 3s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .js .reveal > *,
+  .js .stagger > *,
+  .js .pop-day {
+    opacity: 1;
+  }
+  .js .draw :is(path, circle) {
+    stroke-dashoffset: 0;
+  }
+  .js .settle img {
+    transform: none;
+  }
+  .js .curtain {
+    display: none;
+  }
+  .shimmer {
+    color: var(--base);
+    background: none;
+  }
 }

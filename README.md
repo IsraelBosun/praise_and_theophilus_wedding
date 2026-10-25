@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Praise & Theophilus
 
-## Getting Started
+The wedding website for Praise and Theophilus, Saturday 5 December 2026, Gwagwalada, Abuja.
 
-First, run the development server:
+A single-page invitation in the couple's colours of the day: vintage wine, champagne gold and herbal green. It is laid out as one phone-width column, and on a desktop it sits centred on a wine background like a card on a table.
+
+## Running it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000. If that port is taken, run `npx next dev -p 3002` and open that port instead.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm run lint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Changing the content
 
-## Learn More
+Every piece of wording, every time, venue and phone number lives in one file: [`src/lib/wedding.ts`](src/lib/wedding.ts). Edit it there and every section picks it up.
 
-To learn more about Next.js, take a look at the following resources:
+Some blocks are optional and hidden while empty:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Block | Shows when |
+| --- | --- |
+| `story` | set to `{ photo, paragraphs }`. The photo is cut to a heart. |
+| `gallery` | given a list of image paths under `public/` |
+| `gifts.account` | given `{ bank, name, number }`. Adds a copy button. |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Images live in `public/invitation/images/`:
 
-## Deploy on Vercel
+- `invitation-card.jpg` is the printed card, opened by "View the invitation card" and used as the link preview image.
+- `attire.jpg` is the colours-of-the-day photograph, cropped from page 2 of the card.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Sections
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+In page order ([`src/app/page.tsx`](src/app/page.tsx)):
+
+1. **Hero**: monogram, names set the way the card sets them, and the date line.
+2. **Invitation**: the families and the formal wording.
+3. **Save the date**: the December 2026 calendar with the day marked.
+4. **Order of the day**: traditional, church and reception. The timeline fills as you scroll.
+5. **Venues**: each with a Google Maps directions link.
+6. **Our story** and **Gallery**: hidden until content is added.
+7. **Countdown** to 8:30 AM WAT.
+8. **Colours of the day**: swatches and the attire photograph.
+9. **Gifts**.
+10. **RSVP**: there is no backend. The form composes a WhatsApp message to Jude or Esther, and both numbers are also listed to call.
+11. **Wishes**, then the closing and footer.
+
+## How it is built
+
+- Next.js 16 (App Router, Cache Components) with React 19 and TypeScript.
+- Tailwind CSS v4. The palette and fonts are theme tokens in [`src/app/globals.css`](src/app/globals.css).
+- Fonts: Cormorant Garamond for text and headings, Pinyon Script for the names.
+- Icons: hand-drawn SVG line art in [`src/components/Ornaments.tsx`](src/components/Ornaments.tsx) and [`src/components/ScheduleIcons.tsx`](src/components/ScheduleIcons.tsx), plus a few from `lucide-react`.
+- Vercel Analytics in the root layout.
+
+### Colour roles
+
+- **Vintage wine** carries the page: dark sections, names, primary buttons.
+- **Champagne gold** is for soft bands and light accents.
+- **Herbal green** is for small accents only: leaves, timeline dots, map pins, small labels. Text uses the deepened `herbal-deep` so it stays readable.
+
+### Motion
+
+The animations are plain CSS. One observer ([`src/components/Animator.tsx`](src/components/Animator.tsx)) adds `is-visible` to any element marked `data-inview` as it scrolls into view, and the stylesheet does the rest. That keeps nearly every section a server component.
+
+- The opening curtain and the hero entrance play on load. `--intro` sets their timing.
+- Florals and schedule icons draw themselves stroke by stroke.
+- Section content rises in one element at a time.
+- The order-of-the-day line follows the scroll position ([`src/components/Timeline.tsx`](src/components/Timeline.tsx)).
+
+Hidden starting states only apply under the `js` class, which an inline script sets before first paint, so nothing stays hidden without JavaScript. Everything is switched off for visitors who ask for reduced motion.
+
+## Deploying
+
+The site is built for Vercel. Import the repository, deploy, then enable Analytics in the project's Analytics tab so visits are recorded.

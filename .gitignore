@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# design sources (the site uses exports in public/invitation/images)
+/You Are Invited.pdf
+/theo-style.jpeg
