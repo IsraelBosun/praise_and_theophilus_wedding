@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /*
-  The palette is the card's three colours of the day: vintage wine as the
-  dark ground, champagne gold as the metal, herbal green as a quiet accent.
+  The palette: chocolate brown as the dark ground, champagne gold as the
+  metal, herbal green as a quiet accent.
   Paper is the warm cream the reference sets its light sections on.
 
   The earthy set from the colour library plays support only: chocolate brown
@@ -12,9 +12,14 @@
 @theme {
   --color-paper: #f7f1ea;
   --color-cream: #efe5d8;
-  --color-wine: #4b1526;
-  --color-wine-deep: #3a0f1d;
-  --color-wine-soft: #6e2a3e;
+  /*
+    The dark ground is now the library's chocolate brown. The names stay
+    "wine" so the classes across the components need no change; the guests'
+    Vintage Wine swatch in the dress code keeps its own hex.
+  */
+  --color-wine: #3e2318;
+  --color-wine-deep: #2e1810;
+  --color-wine-soft: #5e3a2a;
   --color-rose: #e7b7bf;
   --color-gold: #b38b59;
   --color-gold-deep: #8a6a3f;
@@ -77,7 +82,7 @@ body {
     radial-gradient(circle at 80% 12%, rgb(217 191 148 / 0.3) 0 1px, transparent 1.5px),
     radial-gradient(circle at 70% 70%, rgb(217 191 148 / 0.25) 0 1px, transparent 1.5px),
     radial-gradient(circle at 30% 85%, rgb(217 191 148 / 0.3) 0 1px, transparent 1.5px),
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgb(110 42 62 / 0.6), transparent 70%);
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgb(94 58 42 / 0.6), transparent 70%);
   background-size: 180px 180px, 220px 220px, 160px 160px, 200px 200px, 100% 100%;
 }
 

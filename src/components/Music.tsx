@@ -114,7 +114,7 @@ export function Music() {
           aria-pressed={playing}
           title={`${title} · ${playing ? "Pause" : "Play"}`}
           // Pinned to the column's right edge on wide screens, the screen's on phones.
-          className="nav-in fixed right-[max(1rem,calc(50vw-240px+1rem))] bottom-5 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-gold/60 bg-wine text-gold-light shadow-[0_6px_20px_rgb(58_15_29/0.4)] transition-colors hover:bg-wine-soft"
+          className="nav-in fixed right-[max(1rem,calc(50vw-240px+1rem))] bottom-5 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-gold/60 bg-wine text-gold-light shadow-[0_6px_20px_rgb(46_24_16/0.4)] transition-colors hover:bg-wine-soft"
         >
           {/* Soft rings ripple out while the song plays. */}
           {playing && (
