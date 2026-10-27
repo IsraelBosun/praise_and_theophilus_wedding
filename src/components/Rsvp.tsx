@@ -9,7 +9,7 @@ const whatsapp = (number: string, text: string) =>
   `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 
 const field =
-  "w-full appearance-none rounded-sm border border-gold/40 bg-paper px-4 py-3 font-serif text-[1rem] text-ink outline-none transition-colors placeholder:text-ink-soft/70 focus:border-gold-deep";
+  "w-full appearance-none rounded-sm border border-tan/40 bg-paper px-4 py-3 font-serif text-[1rem] text-ink outline-none transition-colors placeholder:text-ink-soft/70 focus:border-gold-deep";
 
 /**
  * There is no backend: the form composes a WhatsApp message to the chosen

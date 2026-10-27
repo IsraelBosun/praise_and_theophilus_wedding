@@ -129,10 +129,10 @@ export function Timeline({
                 }}
                 aria-hidden
                 className={`flex h-3.5 w-3.5 rotate-45 items-center justify-center border transition-colors duration-500 ${
-                  lit ? "border-herbal bg-champagne" : "border-gold/60 bg-paper"
+                  lit ? "border-herbal-deep bg-champagne" : "border-gold/60 bg-paper"
                 }`}
               >
-                <span className={`h-1.5 w-1.5 transition-colors duration-500 ${lit ? "bg-herbal" : "bg-gold/40"}`} />
+                <span className={`h-1.5 w-1.5 transition-colors duration-500 ${lit ? "bg-herbal-deep" : "bg-gold/40"}`} />
               </span>
             </span>
 

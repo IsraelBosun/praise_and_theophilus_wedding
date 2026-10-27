@@ -7,7 +7,7 @@ export function Schedule() {
   const venueName = Object.fromEntries(wedding.venues.map((v) => [v.id, v.name]));
 
   return (
-    <section id="schedule" className="border-t border-gold/15 bg-champagne/35 px-6 py-20">
+    <section id="schedule" className="border-t border-gold/15 bg-beige/30 px-6 py-20">
       <Reveal>
         <h2 className="heading text-center text-[1.35rem] text-gold-deep">Order of the Day</h2>
 

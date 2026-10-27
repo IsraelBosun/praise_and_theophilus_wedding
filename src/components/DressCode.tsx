@@ -22,7 +22,7 @@ export function DressCode() {
           ))}
         </ul>
 
-        <div className="settle relative mx-auto mt-10 aspect-[728/786] w-full overflow-hidden rounded-[28px] shadow-md">
+        <div className="settle relative mx-auto mt-10 aspect-[1686/1799] w-full overflow-hidden rounded-[28px] shadow-md">
           <Image src={dressCode.image} alt={dressCode.imageAlt} fill sizes="(max-width: 480px) 90vw, 430px" className="object-cover" />
         </div>
       </Reveal>

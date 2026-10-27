@@ -4,6 +4,10 @@
   The palette is the card's three colours of the day: vintage wine as the
   dark ground, champagne gold as the metal, herbal green as a quiet accent.
   Paper is the warm cream the reference sets its light sections on.
+
+  The earthy set from the colour library plays support only: chocolate brown
+  for text, olive for small green accents, warm tan for fine borders and
+  beige for an alternate light section. None of them is a section ground.
 */
 @theme {
   --color-paper: #f7f1ea;
@@ -16,13 +20,16 @@
   --color-gold-deep: #8a6a3f;
   --color-gold-light: #d9bf94;
   --color-herbal: #6e6e3a;
-  /* Herbal green deepened for small text on paper (about 6:1). */
-  --color-herbal-deep: #5c5c2e;
+  /* Olive from the colour library, for small green text on paper (about 7:1). */
+  --color-herbal-deep: #4d5309;
   /* Herbal green lifted to read on the wine ground. */
   --color-sage: #a9a873;
   --color-champagne: #e2d2b6;
-  --color-ink: #4a2a30;
-  --color-ink-soft: #7a5a5f;
+  --color-tan: #b0866e;
+  --color-beige: #cebdb2;
+  /* Chocolate brown for text, and a softer brown for secondary lines. */
+  --color-ink: #3e2318;
+  --color-ink-soft: #6b5045;
 
   --font-serif: var(--font-cormorant), "Times New Roman", serif;
   --font-script: var(--font-pinyon), cursive;

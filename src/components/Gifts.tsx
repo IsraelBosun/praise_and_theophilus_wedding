@@ -32,7 +32,7 @@ export function Gifts() {
         </div>
 
         {gifts.account && (
-          <div className="mx-auto mt-8 max-w-[300px] border border-gold/50 bg-champagne/30 px-5 py-5">
+          <div className="mx-auto mt-8 max-w-[300px] border border-tan/50 bg-champagne/30 px-5 py-5">
             <p className="eyebrow text-[0.6rem] text-ink-soft">{gifts.account.bank}</p>
             <p className="mt-2 font-serif text-[1.6rem] tracking-[0.12em] text-ink tabular-nums">{gifts.account.number}</p>
             <p className="mt-1 font-serif text-[1rem] text-ink-soft">{gifts.account.name}</p>

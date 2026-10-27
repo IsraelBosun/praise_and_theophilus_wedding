@@ -36,7 +36,7 @@ export function SaveTheDate() {
         <p className="heading -mt-1 text-[0.95rem] text-gold-deep">our date</p>
         <p className="mt-5 font-serif text-[1.6rem] tracking-[0.1em] text-ink">{wedding.dateStamp}</p>
 
-        <div className="mx-auto mt-8 max-w-[300px] border border-gold/50 bg-champagne/30 p-5">
+        <div className="mx-auto mt-8 max-w-[300px] border border-tan/50 bg-champagne/30 p-5">
           <p className="heading text-[0.8rem] text-ink">
             {MONTHS[month - 1]} {year}
           </p>

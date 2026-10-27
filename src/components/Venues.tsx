@@ -18,7 +18,7 @@ export function Venues() {
         <div className="mt-10 space-y-12">
           {wedding.venues.map((venue) => (
             <div key={venue.id}>
-              <MapPin className="mx-auto text-herbal" size={26} strokeWidth={1.2} />
+              <MapPin className="mx-auto text-herbal-deep" size={26} strokeWidth={1.2} />
               <p className="eyebrow mt-3 text-[0.62rem] text-herbal-deep">{venue.label}</p>
               <p className="mt-2 font-serif text-[1.35rem] font-semibold text-ink">{venue.name}</p>
               <p className="mt-1 font-serif text-[1rem] leading-relaxed text-ink-soft">

@@ -99,7 +99,7 @@ export const wedding = {
       { name: "Herbal Green", hex: "#6E6E3A" },
       { name: "Champagne Gold", hex: "#E2D2B6" },
     ],
-    image: "/invitation/images/attire.jpg",
+    image: "/invitation/images/attire-full.jpg",
     imageAlt:
       "Three guests in Yoruba attire: a man in a vintage wine agbada with a champagne fila, a woman in herbal green lace with a champagne gele and sash, and a woman in vintage wine lace with a champagne gele.",
   },
