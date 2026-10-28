@@ -138,7 +138,7 @@ export const wedding = {
     /** Bank details shown under the message, one card each. */
     accounts: [
       { label: "Groom", bank: "First Bank", name: "Theophilus Oni", number: "0505715220" },
-      { label: "Bride", bank: "", name: "Odeseye Toluwase", number: "3228991712" },
+      { label: "Bride", bank: "First Bank",name: "Odeseye Toluwase", number: "3228991712" },
     ] as { label: string; bank: string; name: string; number: string }[],
   },
 
