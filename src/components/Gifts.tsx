@@ -8,13 +8,14 @@ import { Reveal } from "./Reveal";
 
 export function Gifts() {
   const { gifts } = wedding;
-  const [copied, setCopied] = useState(false);
+  // The number last copied, so only its button says "Copied".
+  const [copied, setCopied] = useState<string | null>(null);
 
   const copy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setCopied(text);
+      setTimeout(() => setCopied((c) => (c === text ? null : c)), 2000);
     } catch {
       // Clipboard can be blocked; the number is on screen to copy by hand.
     }
@@ -31,20 +32,23 @@ export function Gifts() {
           ))}
         </div>
 
-        {gifts.account && (
-          <div className="mx-auto mt-8 max-w-[300px] border border-tan/50 bg-champagne/30 px-5 py-5">
-            <p className="eyebrow text-[0.6rem] text-ink-soft">{gifts.account.bank}</p>
-            <p className="mt-2 font-serif text-[1.6rem] tracking-[0.12em] text-ink tabular-nums">{gifts.account.number}</p>
-            <p className="mt-1 font-serif text-[1rem] text-ink-soft">{gifts.account.name}</p>
-            <button
-              type="button"
-              onClick={() => copy(gifts.account!.number)}
-              className="shine eyebrow mt-4 border border-gold/60 px-4 py-2 text-[0.6rem] text-gold-deep transition-colors hover:bg-gold hover:text-paper"
-            >
-              {copied ? "Copied" : "Copy account number"}
-            </button>
-          </div>
-        )}
+        <div className="mt-8 space-y-5">
+          {gifts.accounts.map((account) => (
+            <div key={account.number} className="mx-auto max-w-[300px] border border-tan/50 bg-champagne/30 px-5 py-5">
+              <p className="heading text-[0.8rem] text-gold-deep">{account.label}</p>
+              {account.bank && <p className="eyebrow mt-2 text-[0.6rem] text-ink-soft">{account.bank}</p>}
+              <p className="mt-2 font-serif text-[1.6rem] tracking-[0.12em] text-ink tabular-nums">{account.number}</p>
+              <p className="mt-1 font-serif text-[1rem] text-ink-soft">{account.name}</p>
+              <button
+                type="button"
+                onClick={() => copy(account.number)}
+                className="shine eyebrow mt-4 border border-gold/60 px-4 py-2 text-[0.6rem] text-gold-deep transition-colors hover:bg-gold hover:text-paper"
+              >
+                {copied === account.number ? "Copied" : "Copy account number"}
+              </button>
+            </div>
+          ))}
+        </div>
 
         <div className="mt-8">
           <Heart className="beat mx-auto block text-gold" />

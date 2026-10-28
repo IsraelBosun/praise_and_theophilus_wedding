@@ -135,8 +135,11 @@ export const wedding = {
       "Your presence and prayers are the greatest gift to us.",
       "If you would like to bless us further, we will be truly grateful.",
     ],
-    /** Set to show bank details under the message. */
-    account: null as null | { bank: string; name: string; number: string },
+    /** Bank details shown under the message, one card each. */
+    accounts: [
+      { label: "Groom", bank: "First Bank", name: "Theophilus Oni", number: "0505715220" },
+      { label: "Bride", bank: "", name: "Odeseye Toluwase", number: "3228991712" },
+    ] as { label: string; bank: string; name: string; number: string }[],
   },
 
   rsvp: {
