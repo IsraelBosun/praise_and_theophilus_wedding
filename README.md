@@ -2,7 +2,7 @@
 
 The wedding website for Praise and Theophilus, Saturday 5 December 2026, Gwagwalada, Abuja.
 
-A single-page invitation in the couple's colours of the day: warm tan, herbal green and champagne gold, on the cream of the printed card with chocolate brown as the dark ground. It is laid out as one phone-width column, and on a desktop it sits centred on a chocolate background like a card on a table.
+A single-page invitation in the couple's colours of the day: warm tan, herbal green and champagne gold, on the cream of the printed card, with a deep herbal green for the few dark bands. It is laid out as one phone-width column, and on a desktop it sits centred on a warm tan background like a card on a table.
 
 ## Running it
 
@@ -56,7 +56,7 @@ In page order ([`src/app/page.tsx`](src/app/page.tsx)):
 
 ## RSVP storage (Supabase)
 
-The form posts to [`src/app/api/rsvp/route.ts`](src/app/api/rsvp/route.ts), which inserts a row into the `rsvps` table. Each row holds the name, phone, whether they are attending, number of guests (up to 4), the names of those coming with them, whose guest they are and an optional message.
+The form posts to [`src/app/api/rsvp/route.ts`](src/app/api/rsvp/route.ts), which inserts a row into the `rsvps` table. Each row holds the name, phone, whether they are attending, number of guests (up to 4), whose guest they are and an optional message.
 
 1. Create a Supabase project and run [`supabase/rsvps.sql`](supabase/rsvps.sql) in its SQL editor.
 2. Set two environment variables, in `.env.local` for local runs and in the Vercel project settings for the live site:
@@ -70,6 +70,12 @@ The form posts to [`src/app/api/rsvp/route.ts`](src/app/api/rsvp/route.ts), whic
 3. Read the replies in the Supabase Table Editor, which can also export them to CSV.
 
 Until those variables are set, the route answers 503 and guests are offered WhatsApp instead.
+
+### Seeing the replies
+
+Theophilus signs in at `/admin` with theophilusoni@gmail.com and a password. The page shows the totals, a searchable list and a CSV export. The table's policy returns rows only to that signed-in email, so no one else can read them, even with the publishable key.
+
+To set up the login, open Supabase > Authentication > Users > Add user, enter his email and a password, and tick "Auto Confirm User". Then turn off new sign-ups under Authentication > Sign In / Providers so no one else can make an account.
 
 ## How it is built
 

@@ -6,14 +6,14 @@ export function Invitation() {
   const { families, bride, groom } = wedding;
 
   return (
-    <section id="invitation" className="wash relative overflow-hidden px-8 py-20 text-center">
+    <section id="invitation" className="wash relative overflow-hidden border-t border-gold/15 px-8 py-20 text-center">
       {/* Top-left, opposite the hero's bottom-right corner, so the two never stack. */}
       <Floral name="autumn-spray" flipX flipY className="absolute -top-2 -left-2 w-40" />
       <Reveal>
         <p className="font-serif text-[1.05rem] italic text-ink-soft">{families.lead}</p>
         <ul className="mt-4 space-y-2">
           {families.names.map((name) => (
-            <li key={name} className="font-serif text-[1.3rem] leading-snug font-semibold text-wine">
+            <li key={name} className="font-serif text-[1.3rem] leading-snug font-semibold text-ink">
               {name}
             </li>
           ))}

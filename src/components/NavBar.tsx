@@ -32,8 +32,8 @@ export function NavBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Over the wine hero the bar is clear with gold marks; past it, it turns to paper.
-  const tone = scrolled || open ? "bg-paper/95 text-gold-deep shadow-sm backdrop-blur" : "text-gold-light";
+  // Over the hero the bar is clear; past it, it turns to paper.
+  const tone = scrolled || open ? "bg-paper/95 text-gold-deep shadow-sm backdrop-blur" : "text-gold-deep";
 
   return (
     <>
@@ -54,7 +54,8 @@ export function NavBar() {
           aria-expanded={open}
           aria-controls="site-menu"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="p-2"
+          // A cream disc keeps the icon readable over the hero's corner florals.
+          className={`rounded-full p-2 transition-colors duration-500 ${scrolled || open ? "" : "bg-paper/80 shadow-sm"}`}
         >
           {open ? <X size={22} strokeWidth={1.2} /> : <Menu size={22} strokeWidth={1.2} />}
         </button>

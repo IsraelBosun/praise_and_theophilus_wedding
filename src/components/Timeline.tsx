@@ -106,7 +106,7 @@ export function Timeline({
         const text = (
           <div className={flip ? "text-right" : "text-left"}>
             <p className="font-serif text-[1.3rem] leading-none font-semibold text-ink">{item.time}</p>
-            <p className="heading mt-1.5 text-[0.72rem] leading-snug text-wine">{item.title}</p>
+            <p className="heading mt-1.5 text-[0.72rem] leading-snug text-ink">{item.title}</p>
             <p className="mt-1 font-serif text-[0.9rem] leading-snug italic text-ink-soft">{item.note}</p>
             <p className="mt-0.5 font-serif text-[0.85rem] leading-snug text-herbal-deep">{venueName[item.venueId]}</p>
           </div>

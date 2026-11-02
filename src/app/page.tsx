@@ -15,13 +15,13 @@ import { Rsvp } from "@/components/Rsvp";
 import { Closing, Wishes } from "@/components/Closing";
 
 /**
- * One phone-width column on a wine ground, as in the reference mockup. On a
+ * One phone-width column on a warm tan ground, like the card's colours. On a
  * phone the column is the whole screen; on a desktop it sits centred like a
  * card on a table.
  */
 export default function Home() {
   return (
-    <div className="min-h-screen bg-wine-deep">
+    <div className="min-h-screen bg-tan">
       {/* Opening curtain. Pure CSS, so it plays before any JavaScript has loaded. */}
       <div aria-hidden className="curtain">
         <Monogram size={72} />
