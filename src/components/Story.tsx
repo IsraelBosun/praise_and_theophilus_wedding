@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { wedding } from "@/lib/wedding";
-import { Heart, Peony } from "./Ornaments";
+import { Daisy, Heart } from "./Ornaments";
 import { Reveal } from "./Reveal";
 
 // The heart, in a 300x270 box. Used for both the clip and the gold outline.
@@ -44,12 +44,12 @@ export function Story() {
             >
               <path pathLength={1} d={HEART} />
             </svg>
-            {/* Two peonies tucked against the heart, as a corsage. */}
+            {/* Two daisies tucked against the heart, as a corsage. */}
             <span data-inview className="bloom absolute -bottom-2 left-[8%] w-16">
-              <Peony className="w-full drop-shadow-[0_3px_8px_rgb(138_106_63/0.4)]" />
+              <Daisy className="w-full drop-shadow-[0_3px_8px_rgb(127_106_58/0.35)]" />
             </span>
             <span data-inview className="bloom absolute bottom-[14%] left-[1%] w-9">
-              <Peony className="w-full rotate-45 drop-shadow-[0_2px_6px_rgb(138_106_63/0.4)]" />
+              <Daisy className="w-full rotate-45 drop-shadow-[0_2px_6px_rgb(127_106_58/0.35)]" />
             </span>
           </div>
         )}

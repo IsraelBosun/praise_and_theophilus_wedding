@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { ScheduleItem } from "@/lib/wedding";
-import { Peony } from "./Ornaments";
+import { Daisy } from "./Ornaments";
 import { ScheduleIcon } from "./ScheduleIcons";
 
 /**
@@ -77,7 +77,7 @@ export function Timeline({
       <span aria-hidden className="absolute top-0 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 border border-gold bg-champagne" />
       <span aria-hidden className="absolute bottom-0 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 border border-gold bg-champagne" />
 
-      {/* The peony, stepping from stop to stop with a quarter turn each time. */}
+      {/* The daisy, stepping from stop to stop with a turn each time. */}
       <span
         aria-hidden
         className="absolute left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transition-[top,opacity] duration-[1100ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
@@ -87,7 +87,7 @@ export function Timeline({
           className="block transition-transform duration-[1100ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
           style={{ transform: `rotate(${Math.max(0, step) * 72}deg)` }}
         >
-          <Peony className="w-11 drop-shadow-[0_4px_10px_rgb(75_21_38/0.3)]" />
+          <Daisy className="w-11 drop-shadow-[0_4px_10px_rgb(62_35_24/0.3)]" />
         </span>
       </span>
 
@@ -97,7 +97,7 @@ export function Timeline({
         const icon = (
           <span
             className={`flex h-16 w-16 items-center justify-center rounded-full border bg-paper/70 transition-all duration-700 ${
-              lit ? "border-herbal/50 text-gold-deep shadow-[0_0_0_5px_rgb(226_210_182/0.6)]" : "border-gold/30 text-gold"
+              lit ? "border-herbal/50 text-gold-deep shadow-[0_0_0_5px_rgb(255_231_210/0.8)]" : "border-gold/30 text-gold"
             }`}
           >
             <ScheduleIcon name={item.icon} className="h-11 w-11" />

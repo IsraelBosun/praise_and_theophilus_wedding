@@ -1,37 +1,34 @@
 @import "tailwindcss";
 
 /*
-  The palette: chocolate brown as the dark ground, champagne gold as the
-  metal, herbal green as a quiet accent.
-  Paper is the warm cream the reference sets its light sections on.
-
-  The earthy set from the colour library plays support only: chocolate brown
-  for text, olive for small green accents, warm tan for fine borders and
-  beige for an alternate light section. None of them is a section ground.
+  The palette, after the updated card (You Are Invited2.pdf): its cream
+  paper, the olive gold of the couple's names, and the three
+  colours of the day, warm tan, herbal green and champagne gold.
+  Chocolate brown stays as the dark ground.
 */
 @theme {
-  --color-paper: #f7f1ea;
-  --color-cream: #efe5d8;
+  /* The card's paper. */
+  --color-paper: #fff6e6;
+  --color-cream: #fbead3;
   /*
-    The dark ground is now the library's chocolate brown. The names stay
-    "wine" so the classes across the components need no change; the guests'
-    Vintage Wine swatch in the dress code keeps its own hex.
+    The dark ground is chocolate brown. The names stay "wine" so the classes
+    across the components need no change.
   */
   --color-wine: #3e2318;
   --color-wine-deep: #2e1810;
   --color-wine-soft: #5e3a2a;
-  --color-rose: #e7b7bf;
-  --color-gold: #b38b59;
-  --color-gold-deep: #8a6a3f;
-  --color-gold-light: #d9bf94;
-  --color-herbal: #6e6e3a;
-  /* Olive from the colour library, for small green text on paper (about 7:1). */
-  --color-herbal-deep: #4d5309;
-  /* Herbal green lifted to read on the wine ground. */
-  --color-sage: #a9a873;
-  --color-champagne: #e2d2b6;
-  --color-tan: #b0866e;
-  --color-beige: #cebdb2;
+  /* The olive gold of the groom's name; deep for text on paper (about 5:1). */
+  --color-gold: #ad8b58;
+  --color-gold-deep: #7f6a3a;
+  --color-gold-light: #f0dcbc;
+  --color-herbal: #7d6e40;
+  /* Herbal green darkened for small green text on paper (about 7:1). */
+  --color-herbal-deep: #5a5028;
+  /* Herbal green lifted to read on the chocolate ground. */
+  --color-sage: #b7ab78;
+  --color-champagne: #ffe7d2;
+  --color-tan: #ae856c;
+  --color-beige: #e9d3c0;
   /* Chocolate brown for text, and a softer brown for secondary lines. */
   --color-ink: #3e2318;
   --color-ink-soft: #6b5045;
@@ -70,18 +67,18 @@ body {
 .wash {
   background-color: var(--color-paper);
   background-image:
-    radial-gradient(ellipse 60% 40% at 100% 10%, rgb(226 210 182 / 0.45), transparent 70%),
-    radial-gradient(ellipse 50% 35% at 0% 90%, rgb(226 210 182 / 0.35), transparent 70%);
+    radial-gradient(ellipse 60% 40% at 100% 10%, rgb(255 231 210 / 0.8), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 0% 90%, rgb(174 133 108 / 0.12), transparent 70%);
 }
 
 /* Gold dust over the wine sections. */
 .dust {
   background-color: var(--color-wine);
   background-image:
-    radial-gradient(circle at 15% 20%, rgb(217 191 148 / 0.35) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 80% 12%, rgb(217 191 148 / 0.3) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 70% 70%, rgb(217 191 148 / 0.25) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 30% 85%, rgb(217 191 148 / 0.3) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 15% 20%, rgb(240 220 188 / 0.35) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 80% 12%, rgb(240 220 188 / 0.3) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 70% 70%, rgb(240 220 188 / 0.25) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 30% 85%, rgb(240 220 188 / 0.3) 0 1px, transparent 1.5px),
     radial-gradient(ellipse 80% 60% at 50% 0%, rgb(94 58 42 / 0.6), transparent 70%);
   background-size: 180px 180px, 220px 220px, 160px 160px, 200px 200px, 100% 100%;
 }

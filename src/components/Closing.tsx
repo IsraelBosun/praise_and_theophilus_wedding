@@ -35,8 +35,8 @@ export function Closing() {
         <h2 className="heading text-[1.35rem] text-gold-deep">{closing.heading}</h2>
         <p className="mx-auto mt-3 max-w-[26ch] font-serif text-[1.08rem] text-ink">{closing.body}</p>
         <Heart className="beat mx-auto mt-5 block text-gold" />
-        <Floral name="corner-tall" onPaper className="absolute -bottom-6 -left-10 w-52" />
-        <Floral name="bouquet" onPaper className="absolute -right-6 -bottom-10 w-40" />
+        <Floral name="autumn-corner" flipX flipY className="absolute -bottom-2 -left-2 w-44" />
+        <Floral name="autumn-spray" className="absolute -right-2 -bottom-2 w-40" />
       </section>
 
       <footer className="dust px-8 py-14 text-center text-gold-light">

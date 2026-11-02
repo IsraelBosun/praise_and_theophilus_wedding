@@ -95,13 +95,13 @@ export const wedding = {
     heading: "Colours of the Day",
     intro: "We would love to see you dressed in the colours of our day.",
     colours: [
-      { name: "Vintage Wine", hex: "#4B1526" },
-      { name: "Herbal Green", hex: "#6E6E3A" },
-      { name: "Champagne Gold", hex: "#E2D2B6" },
+      { name: "Warm Tan", hex: "#AE856C" },
+      { name: "Herbal Green", hex: "#7D6E40" },
+      { name: "Champagne Gold", hex: "#FFE7D2" },
     ],
     image: "/invitation/images/attire-full.jpg",
     imageAlt:
-      "Three guests in Yoruba attire: a man in a vintage wine agbada with a champagne fila, a woman in herbal green lace with a champagne gele and sash, and a woman in vintage wine lace with a champagne gele.",
+      "Three guests in Yoruba attire: a man in a warm tan agbada with a champagne fila, a woman in herbal green lace with a champagne gele and sash, and a woman in champagne gold lace with a warm tan gele.",
   },
 
   /**

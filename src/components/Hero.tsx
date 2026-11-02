@@ -21,7 +21,8 @@ export function Hero() {
 
   return (
     <section id="top" className="dust relative overflow-hidden px-6 pt-28 pb-20 text-center text-gold-light">
-      <Floral name="corner-tall" flipY className="absolute -top-10 -left-16 w-60" />
+      {/* The updated card's autumn spray, flush in the top-right corner as on the card. */}
+      <Floral name="autumn-corner" className="absolute -top-2 -right-2 w-56" />
       <Floral name="corner-a" className="absolute -right-10 -bottom-12 w-72" />
 
       <div className="hero-in relative">
@@ -30,9 +31,9 @@ export function Hero() {
         <p className="eyebrow mt-8 text-gold-light/80">We are getting married</p>
 
         <h1 className="mt-6">
-          <CardName name={bride.name} base="var(--color-rose)" />
+          <CardName name={bride.name} base="var(--color-champagne)" />
           <span className="block font-script text-[2.2rem] leading-none text-champagne">and</span>
-          <CardName name={groom.name} base="var(--color-gold-light)" />
+          <CardName name={groom.name} base="var(--color-champagne)" />
         </h1>
 
         {/* Wrapped so the beat and the entrance animate different elements. */}
