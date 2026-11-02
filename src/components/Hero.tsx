@@ -7,8 +7,8 @@ function CardName({ name, base }: { name: string; base: string }) {
   return (
     <span className="flex items-baseline justify-center">
       <span className="shimmer flex items-baseline" style={{ "--base": base } as CSSProperties}>
-        <span className="font-script text-[5.7rem] leading-[0.8] sm:text-[6.6rem]">{name[0]}</span>
-        <span className="heading track-in -ml-2 text-[2.3rem] tracking-[0.08em] sm:text-[2.75rem]">
+        <span className="font-script text-[6.3rem] leading-[0.8] sm:text-[7.2rem]">{name[0]}</span>
+        <span className="heading track-in -ml-2 text-[2.5rem] tracking-[0.08em] sm:text-[3rem]">
           {name.slice(1).toUpperCase()}
         </span>
       </span>
@@ -20,10 +20,10 @@ export function Hero() {
   const { bride, groom, dateParts } = wedding;
 
   return (
-    <section id="top" className="wash relative overflow-hidden px-6 pt-28 pb-20 text-center text-gold-deep">
-      {/* The updated card's autumn spray, flush in the top-right corner as on the card. */}
-      <Floral name="autumn-corner" className="absolute -top-2 -right-2 w-56" />
-      <Floral name="corner-a" onPaper className="absolute -right-10 -bottom-12 w-72" />
+    <section id="top" className="butter relative overflow-hidden px-6 pt-28 pb-20 text-center text-gold-deep">
+      {/* The updated card's autumn spray, kept small in the top-right corner so it clears the monogram. */}
+      <Floral name="autumn-corner" className="absolute -top-2 -right-2 w-32" />
+      <Floral name="corner-a" onPaper className="absolute -right-8 -bottom-10 w-44" />
 
       <div className="hero-in relative">
         <Monogram size={56} className="text-gold-deep" />

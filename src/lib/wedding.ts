@@ -117,15 +117,38 @@ export const wedding = {
     ],
   } as null | { photo: string | null; photoAlt: string; paragraphs: string[] },
 
-  /** An empty list hides the gallery. */
+  /**
+   * An empty list hides the gallery. With an odd count the last photo runs
+   * wide (3:2), so keep a landscape-friendly shot at the end.
+   */
   gallery: [
+    {
+      src: "/invitation/images/gallery-kneel.jpg",
+      alt: "Theophilus on one knee holding out a ring as Praise looks down at him",
+    },
+    {
+      src: "/invitation/images/gallery-introduction.jpg",
+      alt: "Praise in a red gele and lace beside Theophilus in white with coral beads",
+    },
+    {
+      src: "/invitation/images/gallery-yes.jpg",
+      alt: "Praise and Theophilus smiling together after the proposal, among pink balloons and rose petals",
+    },
+    {
+      src: "/invitation/images/gallery-traditional.jpg",
+      alt: "Praise and Theophilus in red and white traditional attire",
+    },
     {
       src: "/invitation/images/gallery-proposal.jpg",
       alt: "Theophilus on one knee proposing to Praise beneath a Will You Marry Me sign",
     },
     {
-      src: "/invitation/images/gallery-traditional.jpg",
-      alt: "Praise and Theophilus in red and white traditional attire",
+      src: "/invitation/images/gallery-garden.jpg",
+      alt: "Praise and Theophilus holding hands under palm trees, in wine red and white",
+    },
+    {
+      src: "/invitation/images/gallery-bench.jpg",
+      alt: "Praise resting her head on Theophilus's shoulder on a white garden bench",
     },
   ] as { src: string; alt: string }[],
 

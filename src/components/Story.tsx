@@ -67,7 +67,7 @@ export function Story() {
   );
 }
 
-/** Two-up grid with a wide last frame when the count is odd. Hidden while empty. */
+/** Two-up grid with a wide (3:2) last frame when the count is odd. Hidden while empty. */
 export function Gallery() {
   const photos = wedding.gallery;
   if (photos.length === 0) return null;
@@ -82,13 +82,13 @@ export function Gallery() {
             return (
               <div
                 key={photo.src}
-                className={`group relative overflow-hidden rounded-sm shadow-sm ${wide ? "col-span-2 aspect-[2/1]" : "aspect-[4/5]"}`}
+                className={`group relative overflow-hidden rounded-sm shadow-sm ${wide ? "col-span-2 aspect-[3/2]" : "aspect-[4/5]"}`}
               >
                 <Image
                   src={photo.src}
                   alt={photo.alt}
                   fill
-                  sizes="(max-width: 480px) 50vw, 240px"
+                  sizes={wide ? "(max-width: 480px) 100vw, 480px" : "(max-width: 480px) 50vw, 240px"}
                   className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105"
                 />
               </div>
