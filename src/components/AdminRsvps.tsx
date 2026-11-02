@@ -147,9 +147,9 @@ export function AdminRsvps({ url, apiKey }: { url: string; apiKey: string }) {
   }, [rows]);
 
   const exportCsv = () => {
-    const head = ["Received", "Name", "Phone", "Attending", "Guests", "Whose guest", "Message"];
-    const lines = shown.map((r) =>
-      [new Date(r.created_at).toISOString(), r.name, r.phone, r.attending ? "Yes" : "No", r.guests, r.side, r.message]
+    const head = ["S/N", "Received", "Name", "Phone", "Attending", "Guests", "Whose guest", "Message"];
+    const lines = shown.map((r, i) =>
+      [i + 1, new Date(r.created_at).toISOString(), r.name, r.phone, r.attending ? "Yes" : "No", r.guests, r.side, r.message]
         .map(csvCell)
         .join(","),
     );
@@ -331,10 +331,13 @@ export function AdminRsvps({ url, apiKey }: { url: string; apiKey: string }) {
           <>
             {/* Phones get cards; wider screens get a table. */}
             <ul className="mt-6 space-y-3 md:hidden">
-              {shown.map((r) => (
+              {shown.map((r, i) => (
                 <li key={r.id} className="rounded-sm border border-tan/30 bg-paper px-4 py-3 shadow-sm">
                   <div className="flex items-start justify-between gap-3">
-                    <p className="text-[1.15rem] font-semibold">{r.name}</p>
+                    <p className="text-[1.15rem] font-semibold">
+                      <span className="mr-2 text-[0.85rem] font-normal text-ink-soft tabular-nums">{i + 1}.</span>
+                      {r.name}
+                    </p>
                     <Status r={r} />
                   </div>
                   <p className="mt-1 text-[0.95rem] text-ink-soft">
@@ -353,6 +356,7 @@ export function AdminRsvps({ url, apiKey }: { url: string; apiKey: string }) {
               <table className="w-full text-left text-[1rem]">
                 <thead className="bg-champagne/50">
                   <tr className="eyebrow text-[0.55rem] text-ink-soft">
+                    <th className="px-4 py-3">S/N</th>
                     <th className="px-4 py-3">Name</th>
                     <th className="px-4 py-3">Phone</th>
                     <th className="px-4 py-3">Reply</th>
@@ -362,8 +366,9 @@ export function AdminRsvps({ url, apiKey }: { url: string; apiKey: string }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {shown.map((r) => (
+                  {shown.map((r, i) => (
                     <tr key={r.id} className="border-t border-tan/20 align-top">
+                      <td className="px-4 py-3 text-ink-soft tabular-nums">{i + 1}</td>
                       <td className="px-4 py-3 font-semibold">{r.name}</td>
                       <td className="px-4 py-3 whitespace-nowrap">
                         <a href={`tel:${r.phone}`} className="underline decoration-gold/50 underline-offset-4">
