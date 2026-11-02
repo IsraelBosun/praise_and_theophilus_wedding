@@ -21,3 +21,10 @@ drop policy if exists "Guests can send an RSVP" on public.rsvps;
 create policy "Guests can send an RSVP" on public.rsvps
   for insert to anon
   with check (true);
+
+-- The /admin page: only Theophilus, signed in, can read the replies. Create
+-- his login under Authentication > Users (Add user, with a password).
+drop policy if exists "Theophilus can read RSVPs" on public.rsvps;
+create policy "Theophilus can read RSVPs" on public.rsvps
+  for select to authenticated
+  using ((auth.jwt() ->> 'email') = 'theophilusoni@gmail.com');
