@@ -24,19 +24,16 @@ export function Rsvp() {
   const [phone, setPhone] = useState("");
   const [attending, setAttending] = useState("");
   const [guests, setGuests] = useState("1");
-  const [guestNames, setGuestNames] = useState("");
   const [side, setSide] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>("idle");
 
   const yes = attending === "yes";
-  const party = yes && guests !== "1";
 
   const summary = [
     yes
       ? `Hello! This is ${name}. I will joyfully attend the wedding of ${bride.name} & ${groom.name} on Saturday 5 December 2026. Number of guests: ${guests}.`
       : `Hello! This is ${name}. Sadly I will not be able to attend the wedding of ${bride.name} & ${groom.name}, but I am celebrating with you in spirit.`,
-    party && guestNames.trim() ? `Coming with me: ${guestNames.trim()}.` : "",
     message.trim() ? `A word for the couple: ${message.trim()}` : "",
   ]
     .filter(Boolean)
@@ -49,7 +46,7 @@ export function Rsvp() {
       const res = await fetch("/api/rsvp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, attending, guests, guestNames, side, message }),
+        body: JSON.stringify({ name, phone, attending, guests, side, message }),
       });
       setStatus(res.ok ? "saved" : "failed");
     } catch {
@@ -144,13 +141,6 @@ export function Rsvp() {
                   ))}
                 </select>
                 <ChevronDown className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-gold" size={16} />
-              </label>
-            )}
-
-            {party && (
-              <label className="block">
-                <span className="sr-only">Names of those coming with you</span>
-                <input value={guestNames} onChange={(e) => setGuestNames(e.target.value)} placeholder="Names of those coming with you" className={field} />
               </label>
             )}
 

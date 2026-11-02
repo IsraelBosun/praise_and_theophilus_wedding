@@ -26,7 +26,6 @@ export async function POST(request: Request) {
     phone,
     attending,
     guests,
-    guest_names: guests > 1 ? text(body?.guestNames, 300) || null : null,
     side: text(body?.side, 60) || null,
     message: text(body?.message, 1000) || null,
   };
